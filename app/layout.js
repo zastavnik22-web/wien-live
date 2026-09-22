@@ -10,3 +10,13 @@ export const metadata = {
     title: "Wien Live"
   }
 };
+
+export default function Layout({ children }) {
+  return (
+    <html lang="bs">
+      <body style={{ margin: 0 }}>
+        {children}
+      </body>
+    </html>
+  );
+}

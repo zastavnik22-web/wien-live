@@ -9,6 +9,7 @@ import {
 const DEFAULT_SERVICES = [
   {
     id: "18-marx",
+    type: "tram",
     line: "18",
     station: "St. Marx",
     stopId: "293",
@@ -16,6 +17,7 @@ const DEFAULT_SERVICES = [
   },
   {
     id: "18-stadion",
+    type: "tram",
     line: "18",
     station: "Stadion",
     stopId: "2422",
@@ -23,6 +25,7 @@ const DEFAULT_SERVICES = [
   },
   {
     id: "71",
+    type: "tram",
     line: "71",
     station: "Oberzellergasse",
     stopId: "2015,2044",
@@ -30,20 +33,37 @@ const DEFAULT_SERVICES = [
   },
   {
     id: "74A",
+    type: "bus",
     line: "74A",
     station: "Rabengasse",
     stopId: "283,7490",
     color: "#2563eb"
   },
   {
+    id: "u4-wienmitte",
+    type: "metro",
+    line: "U4",
+    station: "Wien Mitte",
+    stopId: "60201061",
+    color: "#009640"
+  },
+  {
+    id: "u4-heiligenstadt",
+    type: "metro",
+    line: "U4",
+    station: "Heiligenstadt",
+    stopId: "60201044",
+    color: "#009640"
+  },
+  {
     id: "S7",
+    type: "sbahn",
     line: "S7",
     station: "Wien St. Marx",
     stopId: "",
     color: "#16a34a"
   }
 ];
-
 export default function Page() {
   const [services, setServices] =
     useState(DEFAULT_SERVICES);
@@ -63,6 +83,24 @@ export default function Page() {
   const [lastUpdated, setLastUpdated] =
     useState(null);
 
+  const groups = [
+  {
+    type: "tram",
+    title: "🚋 Tram"
+  },
+  {
+    type: "bus",
+    title: "🚌 Bus"
+  },
+  {
+    type: "metro",
+    title: "🚇 U-Bahn"
+  },
+  {
+    type: "sbahn",
+    title: "🚆 S-Bahn"
+  }
+]; 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(
@@ -461,15 +499,36 @@ export default function Page() {
           </section>
         )}
 
-        <section
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit, minmax(310px, 1fr))",
-            gap: 18
-          }}
-        >
-          {services.map((service) => {
+        <>
+{groups.map(group => (
+  <div key={group.type}>
+
+    <h2
+      style={{
+        marginTop: 24,
+        marginBottom: 14,
+        fontSize: 28,
+        fontWeight: 800
+      }}
+    >
+      {group.title}
+    </h2>
+
+    <section
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "repeat(auto-fit, minmax(310px, 1fr))",
+        gap: 18,
+        marginBottom: 24
+      }}
+    >
+      {services
+        .filter(
+          service =>
+            service.type === group.type
+        )
+        .map((service) => {
             const result =
               results[service.id] ?? {};
 
@@ -688,8 +747,12 @@ export default function Page() {
                 </div>
               </article>
             );
-          })}
-        </section>
+                  })}
+    </section>
+
+  </div>
+))}
+</>
 
         <footer
           style={{

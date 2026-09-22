@@ -44,7 +44,7 @@ const DEFAULT_SERVICES = [
     type: "metro",
     line: "U4",
     station: "Wien Mitte",
-    stopId: "60201061",
+    stopId: "4412",
     color: "#009640"
   },
   {
@@ -52,7 +52,7 @@ const DEFAULT_SERVICES = [
     type: "metro",
     line: "U4",
     station: "Heiligenstadt",
-    stopId: "60201044",
+    stopId: "4425",
     color: "#009640"
   },
   {

@@ -1,2 +1,11 @@
-import {NextResponse} from "next/server";import {resolve} from "../../../lib/wien.js";
-export async function GET(req){try{const p=new URL(req.url).searchParams;return NextResponse.json(await resolve(p.get("station")||"",p.get("line")||""));}catch(e){return NextResponse.json({error:e.message},{status:500});}}
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      error:
+        "Automatsko pronalaženje stopId trenutno nije aktivno. Unesite stopId ručno u Postavkama."
+    },
+    { status: 410 }
+  );
+}

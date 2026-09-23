@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const results = [];
 
-  for (let id = 1; id <= 9000; id++) {
+  for (let id = 250; id <= 330; id++) {
     try {
       const res = await fetch(
         `https://www.wienerlinien.at/ogd_realtime/monitor?stopId=${id}`,
@@ -17,22 +17,20 @@ export async function GET() {
 
       const title =
         monitors[0]?.locationStop?.properties?.title ?? "";
+        console.log(id, title);
 
       const lines = monitors.flatMap(
         (m) => m.lines?.map((l) => l.name) ?? []
       );
 
-      if (
-        title.toLowerCase().includes("rennweg")
-   ) {
-        results.push({
-          stopId: id,
-          station: title,
-          lines,
-        });
-      }
+      results.push({
+        stopId: id,
+        station: title,
+        lines,
+      });
     } catch {}
   }
 
   return NextResponse.json(results);
 }
+         

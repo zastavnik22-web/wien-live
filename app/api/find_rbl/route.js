@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const results = [];
 
-  for (let id = 1; id <= 3000; id++) {
+  for (let id = 1500; id <= 2500; id++) {
     try {
       const res = await fetch(
         `https://www.wienerlinien.at/ogd_realtime/monitor?stopId=${id}`,

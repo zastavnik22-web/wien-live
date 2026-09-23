@@ -3,11 +3,13 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const results = [];
 
-  for (let id = 250; id <= 330; id++) {
+  for (let id = 1; id <= 3000; id++) {
     try {
       const res = await fetch(
         `https://www.wienerlinien.at/ogd_realtime/monitor?stopId=${id}`,
-        { cache: "no-store" }
+        {
+          cache: "no-store",
+        }
       );
 
       const json = await res.json();
@@ -15,22 +17,23 @@ export async function GET() {
 
       if (!monitors.length) continue;
 
-      const title =
-        monitors[0]?.locationStop?.properties?.title ?? "";
-        console.log(id, title);
+      for (const monitor of monitors) {
+        const station =
+          monitor?.locationStop?.properties?.title ?? "";
 
-      const lines = monitors.flatMap(
-        (m) => m.lines?.map((l) => l.name) ?? []
-      );
-
-      results.push({
-        stopId: id,
-        station: title,
-        lines,
-      });
+        for (const line of monitor.lines ?? []) {
+          if (line.name === "71") {
+            results.push({
+              stopId: id,
+              station,
+              line: line.name,
+              direction: line.towards,
+            });
+          }
+        }
+      }
     } catch {}
   }
 
   return NextResponse.json(results);
 }
-         

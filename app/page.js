@@ -48,6 +48,14 @@ const DEFAULT_SERVICES = [
     color: "#2563eb"
   },
   {
+    id: "74a-stmarx",
+    type: "bus",
+    line: "74A",
+    station: "Wien Mitte → St. Marx",
+    stopId: "253",
+    color: "#2563eb"
+  },
+  {
     id: "u4-wienmitte",
     type: "metro",
     line: "U4",

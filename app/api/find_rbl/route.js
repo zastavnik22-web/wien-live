@@ -22,7 +22,9 @@ export async function GET() {
         (m) => m.lines?.map((l) => l.name) ?? []
       );
 
-      if (lines.includes("71")) {
+      if (
+        title.toLowerCase().includes("rennweg")
+   ) {
         results.push({
           stopId: id,
           station: title,

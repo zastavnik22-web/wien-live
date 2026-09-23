@@ -24,6 +24,14 @@ const DEFAULT_SERVICES = [
     color: "#b91c1c"
   },
   {
+    id: "o-rennweg",
+    type: "tram",
+    line: "O",
+    station: "Wien Mitte → Rennweg",
+    stopId: "338",
+    color: "#e30613"
+  },
+  {
     id: "71",
     type: "tram",
     line: "71",
